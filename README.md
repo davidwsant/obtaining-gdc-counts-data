@@ -18,16 +18,18 @@ First, go to the [Genomic Data Commons Data Portal](https://portal.gdc.cancer.go
 You can see from the home page that there are several ways to choose your dataset. You
 can select a dataset based on the project (left side) or based on the tissue (right side).
 I chose to use the "Projects" and filtered on the program, TCGA (Red square, left side).
+
 ![2_Projects_TCGA.png](Images/2_Projects_TCGA.png)
 
 You can then choose a tissue site using the "Primary Site" selection box above the
-"Program" selection box. I am going to use Thymus simply because this is a smaller dataset.
+"Program" selection box. I am going to use Thymus simply because this is a relatively small dataset.
 Once you have selected your tissue site, the projects will come up in a table on the bottom
 right. I only have one listed. Click into that project by clicking on the project name.
 
 Inside the project page, you can select the file types that you want or the samples that
 you want. I want to look at expression data (RNA-seq), and I only want to look at the samples
 from the Thymus. I am going to click on the "94" under the "Exp" on the bottom row (Red square).
+
 ![3_Select_Expression.png](Images/3_Select_Expression.png)
 
 This will take you back to a page that looks like the projects page, but instead shows samples.
@@ -36,8 +38,11 @@ selection box, "Gene Epxression Quantification" in the "Data Type" selection box
 in the "Experimental Strategy" selection box and "HTSeq - Counts" in the "Workflow Type"
 selection box (see Red squares on the left). For some data analysis (e.g., unsupervised clustering
 like KMeans or Heirarchal Clustering) you might want to use the FPKM files instead of the
-raw counts. After you have selected your file types, added all of the files to the cart
-(Green box).
+raw counts. Alternatively you can normalize your own counts using
+[normalize_rna_counts.py](https://github.com/davidwsant/normalize-rna-counts). More
+info about this will be provided later. After you have selected your file types, added all
+of the files to the cart (Green box).
+
 ![4_Select_Counts.png](Images/4_Select_Counts.png)
 
 Now click on the "Cart" button (top right). It will have all of the files that you have
@@ -49,15 +54,22 @@ files, so this will be a tar.gz file. It can be unzipped on the command line usi
 `tar -xvzf FILENAME` but replace 'FILENAME' with the actual name of your file. I
 will not go over how to make use of clinical data in this repository, but very important
 information about clinical phenotype and lifestyle can be obtained from these files.  
+
 ![5_GDC_Download.png](Images/5_GDC_Download.png)
 
 Next you are going to want to merge all the count files that you have downloaded into
 a single 'csv' file for each tissue type for which you have downloaded counts. To do this,
 use the python program 'merge_counts.py'. This program takes the samplesheet file and the
 gzipped tar file containing the count files and returns 'csv' files for each tissue type.
-Detailed instructions are in the 'merge_counts' folder.
-Example usage: `python merge_counts.py -s gdc_sample_sheet.2021-04-13.tsv -c clinical.cart.2021-04-13.tar.gz -u Unpacked_GDC -o MyCounts`
+Detailed instructions are in the
+[merge_counts_instructions](https://github.com/davidwsant/obtaining-gdc-counts-data/merge_counts_instructions)
+folder.
+
+Example usage:
+```
+python merge_counts.py -s gdc_sample_sheet.2021-04-13.tsv -c clinical.cart.2021-04-13.tar.gz -u Unpacked_GDC -o MyCounts
+```
 
 
 After this I recommend that you download the [GTF file](https://api.gdc.cancer.gov/data/25aa497c-e615-4cb7-8751-71f744f9691f)
-that was used for counts from GDC. 
+that was used for counts from GDC.

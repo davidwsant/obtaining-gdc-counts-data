@@ -2,7 +2,6 @@
 # coding: utf-8
 
 import pandas as pd
-#import re
 from argparse import ArgumentParser
 import sys
 import glob
@@ -21,8 +20,9 @@ args.add_argument(
 	'-c',
 	'--cart_file',
 	help="""This is the file that contains count data from Genomic Data Commons. The file name should end
-	in 'tar.gz'. Python will unzip this file and put the resulting subdirectories in a folder titled
-	'Unpacked_Clinical_Cart'""",
+	in 'tar.gz'. Unless otherwise specified, Python will unzip this file and put the resulting 
+        subdirectories in a folder titled 'GDC_unpack_tmp' that will be deleted when the files are 
+        finished merging.""",
 	default=None,
 )
 
@@ -30,7 +30,7 @@ args.add_argument(
 	'-s',
 	'--samplesheet',
 	help="""This is the name of the samplesheet that you downloaded from GDC. The file name should start
-	with 'gdc_sample_sheet' and end in '.tsv'. """,
+	with 'gdc_sample_sheet' followed by a date and end in '.tsv'. """,
 	default = None
 )
 
