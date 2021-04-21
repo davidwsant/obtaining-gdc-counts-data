@@ -62,7 +62,7 @@ a single 'csv' file for each tissue type for which you have downloaded counts. T
 use the python program 'merge_counts.py'. This program takes the samplesheet file and the
 gzipped tar file containing the count files and returns 'csv' files for each tissue type.
 Detailed instructions are in the
-[merge_counts_instructions](https://github.com/davidwsant/obtaining-gdc-counts-data/merge_counts_instructions)
+[merge_counts_instructions](https://github.com/davidwsant/obtaining-gdc-counts-data/tree/master/merge_counts_instructions)
 folder.
 
 Example usage:
@@ -70,6 +70,24 @@ Example usage:
 python merge_counts.py -s gdc_sample_sheet.2021-04-13.tsv -c clinical.cart.2021-04-13.tar.gz -u Unpacked_GDC -o MyCounts
 ```
 
+After you have merged the counts for your project, I would recommend downloading the
+[GTF file](https://api.gdc.cancer.gov/data/25aa497c-e615-4cb7-8751-71f744f9691f)
+that was used for counts from GDC. This file is large and probably very confusing for
+most people that are not very familiar with genomic analysis. To simplify this file
+into a smaller, Excel-readable file I would recommend running it through
+[parse_gtf.py](https://github.com/davidwsant/parse_gtf). The exact command that I used
+to parse this GTF file was
+`python parse_gtf.py -g gencode.v22.annotation.gtf -o Gencode -c`. The file that you
+generate here can be used to obtain the gene name to is associated with the Ensembl ID
+provided in the counts files.
 
-After this I recommend that you download the [GTF file](https://api.gdc.cancer.gov/data/25aa497c-e615-4cb7-8751-71f744f9691f)
-that was used for counts from GDC.
+I would also recommend normalizing the read counts. While raw counts is typically ideal
+for things like differential expression, other things like unsupervised clustering or
+looking at fold changes in expression tend to be better with normalized data. You can
+use [normalize_rna_counts.py](https://github.com/davidwsant/normalize-rna-counts) to
+normalize your raw reads. If you provide a file containing information about the CDS
+lengths for each transcript that you generated using [parse_gtf.py](https://github.com/davidwsant/parse_gtf),
+you can normalize to read counts per million (RCPM), fragments/reads per kilobase
+per million (FPKM/RPKM), or transcripts per million (TPM). Information
+about the different normalization methods used for RNA-seq can be found on this
+[RNA-seq blog](https://www.rna-seqblog.com/rpkm-fpkm-and-tpm-clearly-explained/).
