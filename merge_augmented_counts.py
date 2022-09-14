@@ -190,7 +190,7 @@ for i, row in samplesheet_df.iterrows():
 			print(sample_name +' has more than one Metastatic Tumor file in this directory. ')
 			print('The file '+file_name+' will be given the title '+new_name+'.')
 		metastaitc_df = merge_dataframes(metastaitc_df, tmp_df, sample_label, 'unstranded')
-		metastaitc_tpm_df = merge_dataframes(primary_tpm_df, tmp_df, sample_label, 'tpm_unstranded')
+		metastaitc_tpm_df = merge_dataframes(metastaitc_tpm_df, tmp_df, sample_label, 'tpm_unstranded')
 
 	elif sample_type == 'Solid Tissue Normal':
 		if sample_name not in sample_names['solid_normal']:

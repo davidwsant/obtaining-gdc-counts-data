@@ -1,17 +1,14 @@
-# merge-counts
+# merge-augmented-counts
 
-This program was designed for use with the older file format used by the Genomic
-Data Commons for TCGA data and will not work if your count files say 'augmented'
-in the title. Please see [merge-augmented-counts](https://github.com/davidwsant/obtaining-gdc-counts-data/tree/master/merge_augmented_counts_instructions) for information on using the updated system.
-[merge_counts_instructions](https://github.com/davidwsant/obtaining-gdc-counts-data/tree/master/merge_counts_instructions)
 This program has been designed to merge count files obtained from the Genomic Data Commons
-(https://portal.gdc.cancer.gov/). Please specify the 'tar.gz' file that contains all of the
+(https://portal.gdc.cancer.gov/). Files containing unstranded counts and TPM values for each
+tissue type will be created. Please specify the 'tar.gz' file that contains all of the
 count files using the -c parameter and the samplesheet using the -s parameter. The unpacked
 clinical cart file can optionally be saved using the -u parameter.
 
 Example usage:
 ```
-python merge_counts.py -s gdc_sample_sheet.2021-04-13.tsv -c gdc_download_20210414_202057.715477.tar.gz -u Unpacked_GDC
+python merge_augmented_counts.py -s gdc_sample_sheet.2021-04-13.tsv -c gdc_download_20210414_202057.715477.tar.gz -u Unpacked_GDC
 ```
 
 optional arguments:

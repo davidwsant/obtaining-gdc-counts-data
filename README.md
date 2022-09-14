@@ -59,15 +59,16 @@ information about clinical phenotype and lifestyle can be obtained from these fi
 
 Next you are going to want to merge all the count files that you have downloaded into
 a single 'csv' file for each tissue type for which you have downloaded counts. To do this,
-use the python program 'merge_counts.py'. This program takes the samplesheet file and the
-gzipped tar file containing the count files and returns 'csv' files for each tissue type.
+use the python program 'merge_augmented_counts.py'. This program takes the samplesheet file and the
+gzipped tar file containing the count files and returns 'csv' files containing either
+the Unstranded Counts of TPM values for each tissue type.
 Detailed instructions are in the
-[merge_counts_instructions](https://github.com/davidwsant/obtaining-gdc-counts-data/tree/master/merge_counts_instructions)
+[merge_augmented_counts_instructions](https://github.com/davidwsant/obtaining-gdc-counts-data/tree/master/merge_augmented_counts_instructions)
 folder.
 
 Example usage:
 ```
-python merge_counts.py -s gdc_sample_sheet.2021-04-13.tsv -c clinical.cart.2021-04-13.tar.gz -u Unpacked_GDC -o MyCounts
+python merge_augmented_counts.py -s gdc_sample_sheet.2021-04-13.tsv -c clinical.cart.2021-04-13.tar.gz -u Unpacked_GDC -o MyCounts
 ```
 
 After you have merged the counts for your project, I would recommend downloading the
@@ -83,8 +84,10 @@ provided in the counts files.
 
 I would also recommend normalizing the read counts. While raw counts is typically ideal
 for things like differential expression, other things like unsupervised clustering or
-looking at fold changes in expression tend to be better with normalized data. You can
-use [normalize_rna_counts.py](https://github.com/davidwsant/normalize-rna-counts) to
+looking at fold changes in expression tend to be better with normalized data. The GDC
+now provides you with TPM values, but I have written another program that can be used
+for normalizing RNA-seq data using several differnet normalization methods. See
+[normalize_rna_counts.py](https://github.com/davidwsant/normalize-rna-counts) to
 normalize your raw reads. If you provide a file containing information about the CDS
 lengths for each transcript that you generated using [parse_gtf.py](https://github.com/davidwsant/parse_gtf),
 you can normalize to read counts per million (RCPM), fragments/reads per kilobase
